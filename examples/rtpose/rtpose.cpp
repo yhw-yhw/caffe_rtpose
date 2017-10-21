@@ -60,7 +60,8 @@ DEFINE_int32(start_frame,           0,              "Skip to frame # of video");
 //DEFINE_string(caffeproto, "model/coco/pose_deploy_linevec.prototxt", "Caffe deploy prototxt.");
 //DEFINE_string(caffemodel, "model/mpi/pose_iter_160000.caffemodel", "Caffe model.");
 //DEFINE_string(caffeproto, "model/mpi/pose_deploy_linevec.prototxt", "Caffe deploy prototxt.");
-DEFINE_string(caffemodel, "model/AI/pose_iter_208000.caffemodel", "Caffe model.");
+//DEFINE_string(caffemodel, "model/AI/pose_iter_withbbox_w1_44000.caffemodel", "Caffe model.");
+DEFINE_string(caffemodel, "model/AI/model_iter_40000+50000.caffemodel", "Caffe model.");
 DEFINE_string(caffeproto, "model/AI/pose_deploy_test.prototxt", "Caffe deploy prototxt.");
 DEFINE_string(resolution,           "1280x720",     "The image resolution (display).");
 DEFINE_string(net_resolution,       "656x368",      "Multiples of 16.");
@@ -214,9 +215,9 @@ void warmup(int device_id) {
     
     if (net_copies[device_id].nms_num_parts==14) {
         ModelDescriptorFactory::createModelDescriptor(ModelDescriptorFactory::Type::AI_14, net_copies[device_id].up_model_descriptor);
-        global.nms_threshold = 0.05; //0.2
+        global.nms_threshold = 0.2; //0.2 0.05
         global.connect_min_subset_cnt = 3; //3
-        global.connect_min_subset_score = 0.1; //0.4
+        global.connect_min_subset_score = 0.4; //0.4 0.1
         global.connect_inter_threshold = 0.01;
         global.connect_inter_min_above_threshold = 8;
         LOG(INFO) << "Selecting AI model.";
